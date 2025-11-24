@@ -1,0 +1,40 @@
+<%# View New - Formulário para criar nova tarefa %>
+<%# Esta página exibe o formulário de criação de tarefa %>
+
+<div class="w-full max-w-2xl mx-auto">
+  <%# Botão para voltar à lista %>
+  <div class="mb-6">
+    <%= link_to tasks_path, class: "inline-flex items-center text-blue-500 hover:text-blue-700 transition-colors" do %>
+      <svg
+        class="w-5 h-5 mr-2"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M10 19l-7-7m0 0l7-7m-7 7h18"
+        />
+      </svg>
+      Voltar para todas as tarefas
+    <% end %>
+  </div>
+
+  <%# Card com o formulário %>
+  <div class="bg-white rounded-lg shadow-xl p-8">
+    <%# Cabeçalho %>
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">Nova Tarefa</h1>
+
+      <p class="text-gray-600">
+        Preencha os dados abaixo para criar uma nova tarefa
+      </p>
+    </div>
+
+    <%# Renderiza o formulário parcial %>
+    <%# O símbolo "form" indica que é um partial (arquivo _form.html.erb) %>
+    <%= render "form" %>
+  </div>
+</div>

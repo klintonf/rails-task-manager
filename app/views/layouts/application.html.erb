@@ -1,16 +1,28 @@
 <!DOCTYPE html>
+
 <html>
   <head>
     <title>RailsTaskManager</title>
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%# Importa os estilos do Tailwind CSS %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+
+    <%# Importa os estilos adicionais da aplicação %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+    <%# Importa os scripts JavaScript da aplicação %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <%# Container principal com classes Tailwind para centralização e espaçamento %>
+    <main class="container mx-auto mt-28 px-5 flex">
+      <%# Aqui será renderizado o conteúdo de cada página %>
+      <%= yield %>
+    </main>
   </body>
 </html>

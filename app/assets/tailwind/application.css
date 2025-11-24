@@ -1,0 +1,12 @@
+/* 
+ * Arquivo principal de estilos do Tailwind CSS
+ * 
+ * Este arquivo importa todas as classes utilitárias do Tailwind CSS
+ * que permitem estilizar os componentes diretamente no HTML
+ */
+@import "tailwindcss";
+
+/* 
+ * Estilos customizados para o projeto
+ * Adicione seus estilos personalizados abaixo
+ */

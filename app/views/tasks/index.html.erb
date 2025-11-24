@@ -1,0 +1,129 @@
+<%# View Index - Lista todas as tarefas %>
+<%# Esta é a página principal onde todas as tarefas são exibidas %>
+
+<div class="w-full">
+  <%# Cabeçalho da página com título e botão de nova tarefa %>
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-4xl font-bold text-gray-800">Minhas Tarefas</h1>
+
+    <%# Link para criar nova tarefa - estilizado como botão azul %>
+    <%= link_to new_task_path, class: "bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 shadow-md hover:shadow-lg" do %>
+      <span class="text-xl mr-2">+</span> Nova Tarefa
+    <% end %>
+  </div>
+
+  <%# Verifica se existem tarefas para exibir %>
+  <% if @tasks.any? %>
+    <%# Container com grid responsivo para as tarefas %>
+    <div class="grid gap-4">
+      <%# Loop através de todas as tarefas %>
+      <% @tasks.each do |task| %>
+        <%# Card para cada tarefa - muda a aparência se estiver concluída %>
+        <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200 p-6 <%= 'opacity-75' if task.completed %>">
+          <div class="flex items-start justify-between">
+            <%# Informações da tarefa %>
+            <div class="flex-1">
+              <%# Link para ver detalhes da tarefa %>
+              <%= link_to task_path(task), class: "block" do %>
+                <div class="flex items-center gap-3 mb-2">
+                  <%# Ícone de checkbox - varia conforme status da tarefa %>
+                  <% if task.completed %>
+                    <%# Tarefa concluída - checkbox marcado em verde %>
+                    <span class="text-2xl text-green-500">✓</span>
+                  <% else %>
+                    <%# Tarefa pendente - checkbox vazio %>
+                    <span class="text-2xl text-gray-300">☐</span>
+                  <% end %>
+
+                  <%# Título da tarefa - riscado se concluída %>
+                  <h2 class="text-xl font-semibold text-gray-800 <%= 'line-through text-gray-500' if task.completed %>">
+                    <%= task.title %>
+                  </h2>
+                </div>
+
+                <%# Detalhes da tarefa (se existirem) %>
+                <% if task.details.present? %>
+                  <p class="text-gray-600 ml-9 line-clamp-2">
+                    <%= task.details %>
+                  </p>
+                <% end %>
+              <% end %>
+
+              <%# Badge de status %>
+              <div class="ml-9 mt-3">
+                <% if task.completed %>
+                  <span
+                    class="
+                      inline-block bg-green-100 text-green-800 text-xs
+                      font-semibold px-3 py-1 rounded-full
+                    "
+                  >
+                    Concluída
+                  </span>
+                <% else %>
+                  <span
+                    class="
+                      inline-block bg-yellow-100 text-yellow-800 text-xs
+                      font-semibold px-3 py-1 rounded-full
+                    "
+                  >
+                    Pendente
+                  </span>
+                <% end %>
+              </div>
+            </div>
+
+            <%# Botões de ação %>
+            <div class="flex gap-2 ml-4">
+              <%# Botão de editar %>
+              <%= link_to edit_task_path(task), class: "text-blue-500 hover:text-blue-700 transition-colors" do %>
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                  />
+                </svg>
+              <% end %>
+
+              <%# Botão de deletar com confirmação %>
+              <%= link_to task_path(task), data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir esta tarefa?" }, class: "text-red-500 hover:text-red-700 transition-colors" do %>
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <%# Mensagem quando não há tarefas %>
+    <div class="text-center py-16">
+      <div class="text-6xl mb-4">📝</div>
+
+      <h2 class="text-2xl font-semibold text-gray-600 mb-2">
+        Nenhuma tarefa cadastrada
+      </h2>
+
+      <p class="text-gray-500 mb-6">Comece criando sua primeira tarefa!</p>
+      <%= link_to "Criar primeira tarefa", new_task_path, class: "inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg transition duration-200" %>
+    </div>
+  <% end %>
+</div>
